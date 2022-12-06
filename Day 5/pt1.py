@@ -1,7 +1,7 @@
 import os
 import time
 
-NUM_STACKS = 3
+NUM_STACKS = 9
 crate_lists = [[] for i in range(NUM_STACKS)]
 
 
@@ -32,7 +32,7 @@ def print_stacks(stacks):
     time.sleep(.05)
 
 
-with open('example_input.txt') as file:
+with open('input.txt') as file:
     sections = file.read().split("\n\n")
     crate_levels = sections[0].split("\n")
     instructions = sections[1].split("\n")
