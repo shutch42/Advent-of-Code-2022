@@ -1,3 +1,5 @@
+import os
+
 class End:
     def __init__(self):
         self.x = 0
@@ -81,3 +83,23 @@ class Rope:
         for i in range(1, len(self.links)):
             self.move_chain(i)
         self.check_coordinates()
+
+    def print(self):
+        os.system('clear')
+        terminal = [""] * 24
+        terminal[23] = "Move rope with WASD or arrow keys"
+        for link in self.links:
+            row = 22 - link.y
+            column = link.x
+            terminal_str = terminal[row]
+            for i in range(column):
+                if i >= len(terminal_str):
+                    terminal_str += " "
+            if column == len(terminal_str):
+                terminal_str += "X"
+            else:
+                terminal_str = terminal_str[:column] + 'X' + terminal_str[column+1:]
+            terminal[row] = terminal_str
+
+        for line in terminal:
+            print(line)
