@@ -2,6 +2,7 @@ class Game:
     def __init__(self, filename, worry_divisor):
         self.monkeys = []
         self.worry_divisor = worry_divisor
+        self.product_divisors = 1
         with open(filename) as file:
             monkey_data = file.read().split("\n\n")
             for monkey in monkey_data:
@@ -13,10 +14,10 @@ class Game:
                 operation = attributes[2].split("new = old ")[1]
 
                 test_divisible = int(attributes[3].split("divisible by ")[1])
+                self.product_divisors *= test_divisible
 
                 result_monkey_true = int(attributes[4].split("throw to monkey ")[1])
                 result_monkey_false = int(attributes[5].split("throw to monkey ")[1])
-
                 self.monkeys.append(
                     Monkey(starting_items, operation, test_divisible, result_monkey_true, result_monkey_false))
 
@@ -24,7 +25,7 @@ class Game:
         for i in range(len(self.monkeys)):
             while len(self.monkeys[i].items) > 0:
                 self.monkeys[i].inspect_item(self.worry_divisor)
-                throw_to = self.monkeys[i].test_item_result_monkey()
+                throw_to = self.monkeys[i].test_item_result_monkey(self.product_divisors)
                 self.monkeys[throw_to].items.append(self.monkeys[i].items.pop(0))
 
     def print_monkey_items(self):
@@ -72,7 +73,10 @@ class Monkey:
 
         self.items[0] = int(self.items[0] / worry_divisor)
 
-    def test_item_result_monkey(self):
+    def test_item_result_monkey(self, product_divisors):
+        # self.items[0] = self.items[0] % self.test_divisible
+        # if self.items[0] == 0:
+        self.items[0] = self.items[0] % product_divisors
         if self.items[0] % self.test_divisible == 0:
             return self.result_monkey_true
         else:
