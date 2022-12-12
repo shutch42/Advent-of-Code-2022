@@ -74,8 +74,6 @@ class Monkey:
         self.items[0] = int(self.items[0] / worry_divisor)
 
     def test_item_result_monkey(self, product_divisors):
-        # self.items[0] = self.items[0] % self.test_divisible
-        # if self.items[0] == 0:
         self.items[0] = self.items[0] % product_divisors
         if self.items[0] % self.test_divisible == 0:
             return self.result_monkey_true
