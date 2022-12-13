@@ -35,6 +35,7 @@ def move_right(position, height_map):
 
 
 def get_path(initial_node, target_node, height_map):
+    # Apply breadth-first search to get the shortest path
     visited = [initial_node]
     queue = [initial_node]
     parent_map = {}
