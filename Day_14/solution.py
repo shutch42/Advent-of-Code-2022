@@ -113,9 +113,6 @@ print(num_grains)
 cave = Cave("input.txt", floor=True)
 num_grains = 0
 while cave.sim_sand_grain():
-    # os.system('clear')
-    # print(cave)
-    # time.sleep(.1)
     num_grains += 1
 print(num_grains)
 
