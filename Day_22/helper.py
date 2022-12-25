@@ -56,38 +56,35 @@ class Map:
             self.curr_row = next_row
 
     def move_down(self):
-        try:
-            if self.curr_row < self.tile_size - 1:
+        if self.curr_row < self.tile_size - 1:
+            next_direction = DOWN
+            next_col = self.curr_col
+            next_row = self.curr_row + 1
+            next_tile = self.curr_tile
+        else:
+            next_tile = self.curr_tile.below
+            if next_tile.above == self.curr_tile:
                 next_direction = DOWN
                 next_col = self.curr_col
-                next_row = self.curr_row + 1
-                next_tile = self.curr_tile
+                next_row = 0
+            elif next_tile.right == self.curr_tile:
+                next_direction = LEFT
+                next_col = self.tile_size - 1
+                next_row = self.curr_col
+            elif next_tile.below == self.curr_tile:
+                next_direction = UP
+                next_col = self.tile_size - self.curr_col - 1
+                next_row = self.tile_size - 1
             else:
-                next_tile = self.curr_tile.below
-                if next_tile.above == self.curr_tile:
-                    next_direction = DOWN
-                    next_col = self.curr_col
-                    next_row = 0
-                elif next_tile.right == self.curr_tile:
-                    next_direction = LEFT
-                    next_col = self.tile_size - 1
-                    next_row = self.curr_col
-                elif next_tile.below == self.curr_tile:
-                    next_direction = UP
-                    next_col = self.tile_size - self.curr_col - 1
-                    next_row = self.tile_size - 1
-                else:
-                    next_direction = RIGHT
-                    next_col = 0
-                    next_row = self.tile_size - self.curr_col - 1
+                next_direction = RIGHT
+                next_col = 0
+                next_row = self.tile_size - self.curr_col - 1
 
-            if next_tile.data[next_row][next_col] == '.':
-                self.curr_tile = next_tile
-                self.direction = next_direction
-                self.curr_col = next_col
-                self.curr_row = next_row
-        except:
-            raise Exception()
+        if next_tile.data[next_row][next_col] == '.':
+            self.curr_tile = next_tile
+            self.direction = next_direction
+            self.curr_col = next_col
+            self.curr_row = next_row
 
     def move_left(self):
         if self.curr_col > 0:
