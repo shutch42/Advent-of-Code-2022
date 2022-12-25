@@ -50,7 +50,7 @@ class Field:
 
     def _visible_right(self, row, col):
         height = self.trees[row, col]
-        for j in range(col+1, self.num_rows):
+        for j in range(col+1, self.num_cols):
             if self.trees[row, j] >= height:
                 return False
 
